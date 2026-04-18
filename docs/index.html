@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patterns-JavaScript — Design Patterns for JS, TypeScript, Node.js</title>
+  <meta name="description" content="GRASP, SOLID, and GoF design patterns rethought for JavaScript, TypeScript, and Node.js. Creational, structural, and behavioral patterns with examples.">
+  <meta name="author" content="Vitalii Semianchuk">
+  <meta property="og:title" content="Patterns-JavaScript — Design Patterns for JS/TS/Node.js">
+  <meta property="og:description" content="GRASP, SOLID, GoF patterns rethought for modern JavaScript and TypeScript.">
+  <meta property="og:url" content="https://fix2015.github.io/Patterns-JavaScript">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="header">
+  <button class="hamburger" aria-label="Menu">&#9776;</button>
+  <a href="#" class="header-brand"><span>Patterns</span>-JavaScript</a>
+  <div class="header-links">
+    <a href="https://github.com/fix2015/Patterns-JavaScript" target="_blank">GitHub</a>
+  </div>
+</header>
+<div class="sidebar-overlay"></div>
+<nav class="sidebar">
+  <div class="sidebar-group">
+    <div class="sidebar-group-title">Overview</div>
+    <a href="#overview">About</a>
+    <a href="#principles">Principles</a>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-title">Creational</div>
+    <a href="#creational">Factory, Builder, Singleton...</a>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-title">Structural</div>
+    <a href="#structural">Adapter, Proxy, Decorator...</a>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-title">Behavioral</div>
+    <a href="#behavioral">Observer, Strategy, Command...</a>
+  </div>
+  <div class="sidebar-group">
+    <div class="sidebar-group-title">More</div>
+    <a href="#grasp">GRASP</a>
+    <a href="#solid">SOLID</a>
+    <a href="#antipatterns">Anti-Patterns</a>
+  </div>
+</nav>
+<div class="main">
+<div class="hero">
+  <h1>Patterns-JavaScript</h1>
+  <p class="subtitle">Design Patterns for JavaScript, TypeScript, and Node.js<br>GRASP &middot; SOLID &middot; GoF &middot; Modern JS</p>
+  <div class="hero-buttons">
+    <a href="#creational" class="btn btn-primary">Explore Patterns</a>
+    <a href="https://github.com/fix2015/Patterns-JavaScript" target="_blank" class="btn btn-outline">GitHub</a>
+  </div>
+  <p class="meta">Creational &middot; Structural &middot; Behavioral &middot; GRASP &middot; SOLID &middot; Anti-Patterns</p>
+</div>
+<div class="content">
+<div class="features">
+  <div class="feature-card"><h3>GoF Rethought</h3><p>Classic Gang of Four patterns adapted for modern JavaScript — using closures, modules, Proxy, and ES6+ features instead of classical OOP.</p></div>
+  <div class="feature-card"><h3>GRASP & SOLID</h3><p>Responsibility assignment principles and SOLID principles explained with practical JavaScript and TypeScript examples.</p></div>
+  <div class="feature-card"><h3>Real-World JS</h3><p>Every pattern includes JavaScript-specific implementation using native features like ESM caching for Singleton, Proxy for access control, WeakMap for private state.</p></div>
+</div>
+
+<section id="overview">
+  <h1>Overview</h1>
+  <p>A comprehensive collection of design patterns rethought for JavaScript, TypeScript, and Node.js. Goes beyond textbook examples to show how patterns work with closures, prototypes, Proxy, ES modules, and async patterns.</p>
+</section>
+
+<section id="principles">
+  <h2>Core Principles</h2>
+  <table>
+    <thead><tr><th>Principle Set</th><th>Focus</th></tr></thead>
+    <tbody>
+      <tr><td><strong>GRASP</strong></td><td>General Responsibility Assignment — who does what</td></tr>
+      <tr><td><strong>SOLID</strong></td><td>Single responsibility, Open-closed, Liskov, Interface segregation, Dependency inversion</td></tr>
+      <tr><td><strong>GoF</strong></td><td>23 classic patterns: Creational, Structural, Behavioral</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="creational">
+  <h1>Creational Patterns</h1>
+  <p>Patterns that deal with object creation mechanisms.</p>
+  <table>
+    <thead><tr><th>Pattern</th><th>Description</th><th>JS Implementation</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Factory</strong></td><td>Creates objects using functions or methods</td><td>Functions, mixins, setPrototypeOf</td></tr>
+      <tr><td><strong>Abstract Factory</strong></td><td>Creates families of related objects</td><td>UI components for different platforms</td></tr>
+      <tr><td><strong>Builder</strong></td><td>Step-by-step assembly of complex objects</td><td>Chaining, Query Builder</td></tr>
+      <tr><td><strong>Singleton</strong></td><td>Single instance with global access</td><td>ESM/CJS module caching</td></tr>
+      <tr><td><strong>Prototype</strong></td><td>Create objects by cloning</td><td>Object.create(), structuredClone()</td></tr>
+      <tr><td><strong>Object Pool</strong></td><td>Reuse pre-created objects</td><td>Connection pools, worker pools</td></tr>
+    </tbody>
+  </table>
+  <pre><code class="language-javascript">// Singleton via ESM module caching
+// db.js — the module IS the singleton
+const pool = createPool({ host: 'localhost', database: 'app' });
+export const query = (sql) => pool.query(sql);
+
+// Factory with closures
+function createUser(role) {
+  const permissions = role === 'admin'
+    ? ['read', 'write', 'delete']
+    : ['read'];
+  return { role, permissions };
+}</code></pre>
+</section>
+
+<section id="structural">
+  <h1>Structural Patterns</h1>
+  <p>Patterns that deal with object composition and relationships.</p>
+  <table>
+    <thead><tr><th>Pattern</th><th>Description</th><th>JS Implementation</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Adapter</strong></td><td>Converts incompatible interfaces</td><td>Wrapper functions, API adapters</td></tr>
+      <tr><td><strong>Decorator</strong></td><td>Extends behavior without inheritance</td><td>Higher-order functions, TC39 decorators</td></tr>
+      <tr><td><strong>Proxy</strong></td><td>Controls access to an object</td><td>Native JS Proxy, lazy init, caching</td></tr>
+      <tr><td><strong>Facade</strong></td><td>Simplifies complex subsystem</td><td>API wrappers, SDK interfaces</td></tr>
+      <tr><td><strong>Bridge</strong></td><td>Separates abstraction hierarchies</td><td>Composition over inheritance</td></tr>
+      <tr><td><strong>Composite</strong></td><td>Tree structure with uniform interface</td><td>DOM, file systems, menu trees</td></tr>
+    </tbody>
+  </table>
+  <pre><code class="language-javascript">// Proxy — lazy loading + caching
+const handler = {
+  get(target, prop) {
+    if (!(prop in target)) {
+      target[prop] = expensiveComputation(prop);
+    }
+    return target[prop];
+  }
+};
+const cache = new Proxy({}, handler);
+
+// Decorator — higher-order function
+function withLogging(fn) {
+  return function(...args) {
+    console.log(`Calling ${fn.name}(${args})`);
+    const result = fn.apply(this, args);
+    console.log(`Result: ${result}`);
+    return result;
+  };
+}</code></pre>
+</section>
+
+<section id="behavioral">
+  <h1>Behavioral Patterns</h1>
+  <p>Patterns that deal with communication between objects.</p>
+  <table>
+    <thead><tr><th>Pattern</th><th>Description</th><th>JS Implementation</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Observer</strong></td><td>Notify subscribers of state changes</td><td>EventEmitter, addEventListener</td></tr>
+      <tr><td><strong>Strategy</strong></td><td>Swap algorithms at runtime</td><td>Function arguments, Map of strategies</td></tr>
+      <tr><td><strong>Command</strong></td><td>Encapsulate operations as objects</td><td>Undo/redo, task queues</td></tr>
+      <tr><td><strong>Iterator</strong></td><td>Sequential access to elements</td><td>Symbol.iterator, generators</td></tr>
+      <tr><td><strong>Chain of Responsibility</strong></td><td>Pass request along handler chain</td><td>Express middleware, Koa</td></tr>
+      <tr><td><strong>State</strong></td><td>Alter behavior when state changes</td><td>State machines, XState</td></tr>
+    </tbody>
+  </table>
+  <pre><code class="language-javascript">// Observer via EventEmitter
+import { EventEmitter } from 'events';
+const bus = new EventEmitter();
+bus.on('user:created', (user) => sendWelcomeEmail(user));
+bus.on('user:created', (user) => initProfile(user));
+bus.emit('user:created', { name: 'John' });
+
+// Strategy pattern
+const strategies = {
+  bubble: (arr) => { /* bubble sort */ },
+  quick: (arr) => { /* quick sort */ },
+  merge: (arr) => { /* merge sort */ },
+};
+function sort(arr, algorithm = 'quick') {
+  return strategies[algorithm](arr);
+}</code></pre>
+</section>
+
+<section id="grasp">
+  <h2>GRASP Principles</h2>
+  <ul>
+    <li><strong>Information Expert</strong> — assign responsibility to the class with the most information</li>
+    <li><strong>Creator</strong> — assign creation to the class that has the data needed</li>
+    <li><strong>Controller</strong> — delegate system events to a non-UI object</li>
+    <li><strong>Low Coupling</strong> — minimize dependencies between modules</li>
+    <li><strong>High Cohesion</strong> — keep related behavior together</li>
+    <li><strong>Polymorphism</strong> — use interfaces/protocols instead of conditionals</li>
+    <li><strong>Pure Fabrication</strong> — create utility classes when no domain object fits</li>
+    <li><strong>Indirection</strong> — add intermediate objects to reduce coupling</li>
+    <li><strong>Protected Variations</strong> — hide instability behind stable interfaces</li>
+  </ul>
+</section>
+
+<section id="solid">
+  <h2>SOLID Principles</h2>
+  <table>
+    <thead><tr><th>Principle</th><th>Description</th><th>JS Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>S</strong> — Single Responsibility</td><td>One reason to change</td><td>Separate validation, persistence, rendering</td></tr>
+      <tr><td><strong>O</strong> — Open/Closed</td><td>Open for extension, closed for modification</td><td>Plugin systems, strategy maps</td></tr>
+      <tr><td><strong>L</strong> — Liskov Substitution</td><td>Subtypes replaceable for base types</td><td>Interface contracts, duck typing</td></tr>
+      <tr><td><strong>I</strong> — Interface Segregation</td><td>Small, specific interfaces</td><td>Multiple small modules vs monolith</td></tr>
+      <tr><td><strong>D</strong> — Dependency Inversion</td><td>Depend on abstractions</td><td>Inject dependencies via constructor/factory</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="antipatterns">
+  <h2>Anti-Patterns</h2>
+  <ul>
+    <li><strong>God Object</strong> — one module that does everything</li>
+    <li><strong>Callback Hell</strong> — deeply nested callbacks (use async/await)</li>
+    <li><strong>Premature Optimization</strong> — optimizing before measuring</li>
+    <li><strong>Copy-Paste Programming</strong> — duplication instead of abstraction</li>
+    <li><strong>Magic Numbers</strong> — unexplained numeric literals</li>
+    <li><strong>Global State</strong> — shared mutable state across modules</li>
+  </ul>
+</section>
+</div>
+<footer class="footer">
+  <p>Patterns-JavaScript — Design Patterns for JS, TypeScript, Node.js</p>
+  <p>Built by Vitalii Semianchuk</p>
+  <p><a href="https://github.com/fix2015/Patterns-JavaScript">GitHub</a></p>
+  <p>MIT License</p>
+</footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
